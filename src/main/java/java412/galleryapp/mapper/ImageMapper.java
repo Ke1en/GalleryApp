@@ -11,14 +11,14 @@ import java.util.Base64;
 public class ImageMapper {
 
     public ImageResponseDto mapToImageResponseDto(Image image) {
-        return new ImageResponseDto(image.getId(), image.getName(), image.getDescription(), image.getImage());
+        return new ImageResponseDto(image.getId(), image.getImage());
     }
 
     public ImageBase64ResponseDto mapToImageBase64ResponseDto(Image image) {
 
         String base64Image = Base64.getEncoder().encodeToString(image.getImage());
 
-        return new ImageBase64ResponseDto(image.getId(), image.getName(), image.getDescription(), base64Image);
+        return new ImageBase64ResponseDto(image.getId(), base64Image);
 
     }
 

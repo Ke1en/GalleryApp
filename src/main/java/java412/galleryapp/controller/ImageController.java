@@ -25,13 +25,18 @@ public class ImageController {
         return "redirect:/images";
     }
 
-    @PostMapping(consumes = "multipart/form-data", path = "/upload") //TODO: переделать под @controller а не API restcontroller
-    public ResponseEntity<ImageResponseDto> uploadImage(@RequestParam("name") String name, @RequestParam("description") String description,@RequestPart("file") MultipartFile file) throws IOException {
+    @PostMapping(consumes = "multipart/form-data", path = "/uploadImg") //TODO: переделать под @controller а не API restcontroller
+    public ResponseEntity<ImageResponseDto> uploadImage(@RequestPart("file") MultipartFile file) throws IOException {
 
-        ImageResponseDto imageResponseDto = imageService.uploadImage(name, description, file);
+        ImageResponseDto imageResponseDto = imageService.uploadImage(file);
 
         return ResponseEntity.ok(imageResponseDto);
 
+    }
+
+    @GetMapping("/upload")
+    public String showUploadImage(Model model) {
+        return "upload";
     }
 
     @GetMapping("/images")

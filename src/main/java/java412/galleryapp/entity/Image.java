@@ -25,12 +25,6 @@ public class Image {
     @Column
     private UUID id;
 
-    @Column
-    private String name;
-
-    @Column
-    private String description;
-
     @Lob
     @Column
     private byte[] image;

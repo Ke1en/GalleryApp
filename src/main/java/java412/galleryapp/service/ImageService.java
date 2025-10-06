@@ -32,11 +32,11 @@ public class ImageService {
     private ImageMapper imageMapper;
 
     @Transactional(rollbackFor = Exception.class)
-    public ImageResponseDto uploadImage(String name, String description, MultipartFile file) throws IOException {
+    public ImageResponseDto uploadImage(MultipartFile file) throws IOException {
 
         LocalDateTime createDate = LocalDateTime.now();
 
-        Image image = new Image(UUID.randomUUID(), name, description, ImageUtils.compressImage(file.getBytes()), createDate);
+        Image image = new Image(UUID.randomUUID(), ImageUtils.compressImage(file.getBytes()), createDate);
 
         imageRepository.saveAndFlush(image);
 
