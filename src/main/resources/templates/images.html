@@ -6,16 +6,28 @@
 </head>
 <body>
 
-<!-- Меню -->
-<div class="menu">
-    <a th:href="@{/account}">My Account</a>
-    <a th:href="@{/images}">Gallery</a>
-    <a th:href="@{/upload}">Upload</a>
-</div>
+<!-- Общий контейнер для всего контента -->
+<div class="main-container">
+    <!-- Меню -->
+    <div class="menu">
+        <a th:href="@{/account}">My Account</a>
+        <a th:href="@{/images}">Gallery</a>
+        <a th:href="@{/upload}">Upload</a>
+    </div>
 
-<div class="gallery-grid">
-    <div class="gallery-item" th:each="img : ${images}">
-        <img th:src="'data:image/jpeg;base64,' + ${img.image}" th:alt="${img.name}"/>
+    <!-- Контейнер под меню и слева от галереи -->
+    <div class="content-area">
+        <!-- Блок для поисковой строки -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search images..."/>
+        </div>
+
+        <!-- Галерея -->
+        <div class="gallery-grid">
+            <div class="gallery-item" th:each="img : ${images}">
+                <img th:src="'data:image/jpeg;base64,' + ${img.image}" th:alt="${img.name}"/>
+            </div>
+        </div>
     </div>
 </div>
 

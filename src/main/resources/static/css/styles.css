@@ -33,6 +33,36 @@ h1 {
     margin: 20px;
 }
 
+/* Контейнер, где расположены поиск и галерея — горизонтально */
+.content-area {
+    display: flex;
+    flex: 1; /* Занимает оставшееся пространство */
+    padding: 20px;
+    gap: 20px; /* Расстояние между поиском и галереей */
+}
+
+/* Контейнер для поисковой строки */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px; /* ширина блока поиска, по желанию */
+}
+
+.search-input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    outline: none;
+}
+
+.search-input:hover,
+.search-input:focus {
+    border-color: #4f8fff;
+}
+
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
