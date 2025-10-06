@@ -25,7 +25,7 @@
         <!-- Галерея -->
         <div class="gallery-grid">
             <div class="gallery-item" th:each="img : ${images}">
-                <img th:src="'data:image/jpeg;base64,' + ${img.image}" th:alt="${img.name}"/>
+                <img th:src="'data:image/jpeg;base64,' + ${img.image}"/>
             </div>
         </div>
     </div>

@@ -43,9 +43,10 @@ h1 {
 
 /* Контейнер для поисковой строки */
 .search-container {
+    padding-top: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 200px; /* ширина блока поиска, по желанию */
 }
@@ -97,7 +98,7 @@ h1 {
 
 .gallery-item img {
     width: 100%;
-    max-height: 120px;
+    max-height: 100%;
     object-fit: cover;
     border-radius: 4px;
 }
