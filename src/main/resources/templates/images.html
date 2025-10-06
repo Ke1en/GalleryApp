@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Images Gallery</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<!-- Меню -->
+<div class="menu">
+    <a th:href="@{/account}">My Account</a>
+    <a th:href="@{/images}">Gallery</a>
+    <a th:href="@{/upload}">Upload</a>
+</div>
+
+<div class="gallery-grid">
+    <div class="gallery-item" th:each="img : ${images}">
+        <img th:src="'data:image/jpeg;base64,' + ${img.image}" th:alt="${img.name}"/>
+    </div>
+</div>
+
+</body>
+</html>
