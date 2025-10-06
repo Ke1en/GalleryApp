@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Загрузка файла</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+
+<!-- Меню сверху -->
+<div class="menu">
+    <a th:href="@{/account}">My Account</a>
+    <a th:href="@{/images}">Gallery</a>
+    <a th:href="@{/upload}">Upload</a>
+</div>
+
+<!-- Основной контент, центрированный -->
+<div class="page-content">
+    <div class="upload-container">
+        <form class="upload-form" th:action="@{/upload}" method="post" enctype="multipart/form-data">
+            <input type="file" id="file" name="file" required/>
+            <button type="submit" class="submit-btn">Загрузить</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
