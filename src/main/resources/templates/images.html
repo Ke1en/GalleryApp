@@ -56,7 +56,9 @@
                     <span th:if="${startPage > 2}" class="gap">…</span>
 
                     <!-- Диапазон страниц без первых двух и последних двух -->
-                    <span th:each="i : ${#numbers.sequence(startPage > 2 ? startPage : 2, endPage < totalPages - 3 ? endPage : totalPages - 3)}">
+                    <span th:each="i : ${#numbers.sequence(
+                        (startPage > 2 ? startPage : 2),
+                        (endPage < totalPages - 3 ? endPage : totalPages - 3))}">
                         <a th:href="@{/images(page=${i}, size=${size})}"
                            th:text="${i + 1}"
                            th:classappend="${i == currentPage} ? ' current' : ''">
