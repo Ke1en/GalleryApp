@@ -1,13 +1,13 @@
 package java412.galleryapp.service;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import java412.galleryapp.dto.ImageBase64ResponseDto;
-import java412.galleryapp.dto.ImageResponseDto;
 import java412.galleryapp.entity.Image;
 import java412.galleryapp.mapper.ImageMapper;
 import java412.galleryapp.repository.ImageRepository;
 import java412.galleryapp.utils.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -15,10 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -32,7 +30,7 @@ public class ImageService {
     private ImageMapper imageMapper;
 
     @Transactional(rollbackFor = Exception.class)
-    public ImageResponseDto uploadImage(MultipartFile file) throws IOException {
+    public void uploadImage(MultipartFile file) throws IOException {
 
         LocalDateTime createDate = LocalDateTime.now();
 
@@ -40,25 +38,23 @@ public class ImageService {
 
         imageRepository.saveAndFlush(image);
 
-        return imageMapper.mapToImageResponseDto(image);
+        imageMapper.mapToImageResponseDto(image);
 
     }
 
-    public List<ImageBase64ResponseDto> getAllImages() {
+    public Page<Image> getAllImages(Pageable pageable) {
 
-        List<Image> images = imageRepository.findAll();
+        Page<Image> imagesPage = imageRepository.findAll(pageable);
 
-        List<Image> decompressedImages = images.stream()
+        List<Image> decompressedImages = imagesPage.getContent().stream()
                 .map(image -> {
                     byte[] decompressedData = ImageUtils.decompressImage(image.getImage());
                     image.setImage(decompressedData);
                     return image;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
-        return decompressedImages.stream()
-                .map(imageMapper::mapToImageBase64ResponseDto)
-                .collect(Collectors.toList());
+        return new PageImpl<>(decompressedImages, pageable, imagesPage.getTotalElements());
 
     }
 

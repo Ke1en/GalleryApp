@@ -37,8 +37,8 @@ h1 {
 .content-area {
     display: flex;
     flex: 1; /* Занимает оставшееся пространство */
-    padding: 20px;
     gap: 20px; /* Расстояние между поиском и галереей */
+    padding: 20px 20px 80px;
 }
 
 /* Контейнер для поисковой строки */
@@ -145,4 +145,69 @@ h1 {
 
 .submit-btn:hover {
     background-color: #3a6fdc;
+}
+
+/* Нижнее меню — фиксировано внизу страницы */
+.bottom-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1c1c1c;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
+}
+
+/* Стили для элементов меню */
+.bottom-menu a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 6px 8px;
+    transition: color 0.2s ease-in-out;
+    display: flex;
+}
+
+.bottom-menu a:hover {
+    color: #4f8fff; /* синий цвет при наведении */
+}
+
+/* Стиль пагинации внутри нижнего меню, например, отображать в строку */
+.bottom-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.bottom-pagination > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/* Подсветка текущей страницы через цвет текста и/или шрифт */
+.bottom-pagination a.current {
+    color: #4f8fff;        /* яркий цвет текста (красный, например) */
+    font-weight: bold;     /* сделать шрифт жирным */
+    background-color: transparent; /* без фона */
+    border: none;          /* без рамки */
+}
+
+.pagination-link {
+    cursor: pointer;
+    color: #eee;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.pagination-link.disabled {
+    opacity: 0.5;
+    cursor: default;
 }
