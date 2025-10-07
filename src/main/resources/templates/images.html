@@ -19,14 +19,9 @@
     <div class="content-area">
         <!-- Блок для поисковой строки -->
         <div class="search-container">
-            <input type="text" class="search-input" placeholder="Search images..."/>
-        </div>
-
-        <!-- Галерея -->
-        <div class="gallery-grid">
-            <div class="gallery-item" th:each="img : ${images}">
-                <img th:src="'data:image/jpeg;base64,' + ${img.image}"/>
-            </div>
+            <label>
+                <input type="text" class="search-input" placeholder="Search images..."/>
+            </label>
         </div>
 
         <div class="bottom-menu">
@@ -54,7 +49,8 @@
                     <a th:if="${totalPages > 1}"
                        th:href="@{/images(page=1, size=${size})}"
                        th:classappend="${currentPage == 1} ? ' current' : ''"
-                       th:text="${2}">2</a>
+                       th:text="${2}">2
+                    </a>
 
                     <!-- Многоточие после первых двух страниц -->
                     <span th:if="${startPage > 2}" class="gap">…</span>
@@ -63,7 +59,8 @@
                     <span th:each="i : ${#numbers.sequence(startPage > 2 ? startPage : 2, endPage < totalPages - 3 ? endPage : totalPages - 3)}">
                         <a th:href="@{/images(page=${i}, size=${size})}"
                            th:text="${i + 1}"
-                           th:classappend="${i == currentPage} ? ' current' : ''"></a>
+                           th:classappend="${i == currentPage} ? ' current' : ''">
+                        </a>
                     </span>
 
                     <!-- Многоточие перед последними двумя страницами -->
@@ -73,11 +70,14 @@
                     <a th:if="${totalPages > 2}"
                        th:href="@{/images(page=${totalPages - 2}, size=${size})}"
                        th:classappend="${currentPage == totalPages - 2} ? ' current' : ''"
-                       th:text="${totalPages - 1}"></a>
+                       th:text="${totalPages - 1}">
+                    </a>
+
                     <a th:if="${totalPages > 1}"
                        th:href="@{/images(page=${totalPages - 1}, size=${size})}"
                        th:classappend="${currentPage == totalPages - 1} ? ' current' : ''"
-                       th:text="${totalPages}"></a>
+                       th:text="${totalPages}">
+                    </a>
                 </div>
 
                 <!-- Следующая -->
@@ -87,6 +87,14 @@
 
             </div>
         </div>
+
+        <!-- Галерея -->
+        <div class="gallery-grid">
+            <div class="gallery-item" th:each="img : ${images}">
+                <img th:src="'data:image/jpeg;base64,' + ${img.image}"/>
+            </div>
+        </div>
+
     </div>
 </div>
 
