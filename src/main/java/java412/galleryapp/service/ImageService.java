@@ -48,8 +48,16 @@ public class ImageService {
 
         List<Image> decompressedImages = imagesPage.getContent().stream()
                 .map(image -> {
-                    byte[] decompressedData = ImageUtils.decompressImage(image.getImage());
-                    image.setImage(decompressedData);
+                    try {
+
+                        byte[] decompressedData = ImageUtils.decompressImage(image.getImage());
+                        byte[] resizedData = ImageUtils.resizeImage(decompressedData, 0.1);
+                        image.setImage(resizedData);
+
+                    } catch (IOException e){
+                        e.printStackTrace();
+                    }
+
                     return image;
                 })
                 .toList();
