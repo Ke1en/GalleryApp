@@ -1,6 +1,5 @@
 package java412.galleryapp.controller;
 
-import java412.galleryapp.dto.ImageBase64ResponseDto;
 import java412.galleryapp.dto.ImageResponseDto;
 import java412.galleryapp.entity.Image;
 import java412.galleryapp.mapper.ImageMapper;
@@ -9,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -54,8 +51,8 @@ public class ImageController {
         Pageable pageable = PageRequest.of(page, size);
         Page<Image> imagesPage = imageService.getAllImages(pageable);
 
-        List<ImageBase64ResponseDto> images = imagesPage.getContent().stream()
-                .map(imageMapper::mapToImageBase64ResponseDto)
+        List<ImageResponseDto> images = imagesPage.getContent().stream()
+                .map(imageMapper::mapToImageResponseDto)
                 .toList();
 
         int maxPagesToShow = 5;

@@ -14,6 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -32,38 +35,23 @@ public class ImageService {
     @Transactional(rollbackFor = Exception.class)
     public void uploadImage(MultipartFile file) throws IOException {
 
-        LocalDateTime createDate = LocalDateTime.now();
+        String fileName = UUID.randomUUID() + "." +  ImageUtils.getImageFormat(file.getBytes());
 
-        Image image = new Image(UUID.randomUUID(), ImageUtils.compressImage(file.getBytes()), createDate);
+        Path staticImagesPath = Paths.get("/src/main/resources/static/images");
+        Files.createDirectories(staticImagesPath);
+
+        Path filePath = staticImagesPath.resolve(fileName);
+
+        Files.write(filePath, file.getBytes());
+
+        Image image = new Image(UUID.randomUUID(), "/images/" + fileName, LocalDateTime.now());
 
         imageRepository.saveAndFlush(image);
-
-        imageMapper.mapToImageResponseDto(image);
 
     }
 
     public Page<Image> getAllImages(Pageable pageable) {
-
-        Page<Image> imagesPage = imageRepository.findAll(pageable);
-
-        List<Image> decompressedImages = imagesPage.getContent().stream()
-                .map(image -> {
-                    try {
-
-                        byte[] decompressedData = ImageUtils.decompressImage(image.getImage());
-                        byte[] resizedData = ImageUtils.resizeImage(decompressedData, 0.1);
-                        image.setImage(resizedData);
-
-                    } catch (IOException e){
-                        e.printStackTrace();
-                    }
-
-                    return image;
-                })
-                .toList();
-
-        return new PageImpl<>(decompressedImages, pageable, imagesPage.getTotalElements());
-
+        return imageRepository.findAll(pageable);
     }
 
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Schema(description = "DTO с основной информацией об изображении")
@@ -16,7 +17,10 @@ public class ImageResponseDto {
     @Schema(description = "Идентификатор изображения")
     private UUID id;
 
-    @Schema(type = "byte", description = "Сжатое изображение в байтах")
-    private byte[] image;
+    @Schema(type = "String", description = "Путь к изображению")
+    private String imageUrl;
+
+    @Schema(description = "Время создания изображения")
+    private LocalDateTime createDate;
 
 }

@@ -25,9 +25,8 @@ public class Image {
     @Column
     private UUID id;
 
-    @Lob
-    @Column
-    private byte[] image;
+    @Column(nullable = false)
+    private String imageUrl;
 
     @CreatedDate
     @Column
