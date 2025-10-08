@@ -7,7 +7,7 @@ spring:
       enabled: true
       max-file-size: -1
       max-request-size: -1
-      location: ${resources}
+      location: /tmp/uploads
   datasource:
     url: jdbc:postgresql://localhost:5432/gallery_app_db
     username: postgres

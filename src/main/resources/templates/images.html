@@ -93,7 +93,7 @@
         <!-- Галерея -->
         <div class="gallery-grid">
             <div class="gallery-item" th:each="img : ${images}">
-                <img th:src="@{${img.imageUrl}}"/>
+                <img th:src="${img.imageUrl}"/>
             </div>
         </div>
 

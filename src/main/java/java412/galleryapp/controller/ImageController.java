@@ -31,7 +31,6 @@ public class ImageController {
     }
 
     @PostMapping(consumes = "multipart/form-data", path = "/upload")
-    //TODO: переделать под @controller а не API restcontroller
     public String uploadImage(@RequestPart("file") MultipartFile file) throws IOException {
 
         imageService.uploadImage(file);

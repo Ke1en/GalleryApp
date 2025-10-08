@@ -1,6 +1,5 @@
 package java412.galleryapp.utils;
 
-import net.coobird.thumbnailator.Thumbnailator;
 import net.coobird.thumbnailator.Thumbnails;
 
 import javax.imageio.ImageIO;
@@ -11,8 +10,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 
 public class ImageUtils {
 
