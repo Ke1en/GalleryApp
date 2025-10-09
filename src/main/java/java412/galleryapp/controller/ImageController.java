@@ -1,6 +1,5 @@
 package java412.galleryapp.controller;
 
-import java412.galleryapp.mapper.ImageMapper;
 import java412.galleryapp.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +15,6 @@ public class ImageController {
 
     @Autowired
     private ImageService imageService;
-
-    @Autowired
-    private ImageMapper imageMapper;
 
     @GetMapping(value = {"/", "/home"})
     public String redirectAllImagesPage() {

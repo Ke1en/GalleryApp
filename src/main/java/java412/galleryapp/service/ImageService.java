@@ -6,8 +6,6 @@ import java412.galleryapp.repository.ImageRepository;
 import java412.galleryapp.repository.ThumbnailRepository;
 import java412.galleryapp.utils.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -48,7 +46,6 @@ public class ImageService {
         Files.createDirectories(imagesPath);
 
         Path filePath = imagesPath.resolve(fileName);
-
         Files.write(filePath, file.getBytes());
 
         Image image = new Image(UUID.randomUUID(), "/images/" + fileName, LocalDateTime.now());
@@ -69,12 +66,11 @@ public class ImageService {
         String filename = UUID.randomUUID() + "." +  ImageUtils.getImageFormat(originalImageBytes);
 
         Path thumbnailImagesPath = Paths.get("C:/media/thumbnails");
-
         Path filePath = thumbnailImagesPath.resolve(filename);
-
         Files.write(filePath, thumbnailImageBytes);
 
         Thumbnail thumbnailImage = new Thumbnail(UUID.randomUUID(), "/thumbnails/" + filename, LocalDateTime.now(), originalImage.getId());
+
         thumbnailRepository.saveAndFlush(thumbnailImage);
 
     }
