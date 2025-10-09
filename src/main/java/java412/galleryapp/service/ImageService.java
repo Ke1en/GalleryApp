@@ -61,7 +61,7 @@ public class ImageService {
         Path originalImagePath = Paths.get("C:/media").resolve(originalImage.getImageUrl().substring(1));
         byte[] originalImageBytes = Files.readAllBytes(originalImagePath);
 
-        byte[] thumbnailImageBytes = ImageUtils.resizeImage(originalImageBytes, 0.1);
+        byte[] thumbnailImageBytes = ImageUtils.resizeImage(originalImageBytes);
 
         String filename = UUID.randomUUID() + "." +  ImageUtils.getImageFormat(originalImageBytes);
 

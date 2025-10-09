@@ -13,7 +13,9 @@ import java.util.Iterator;
 
 public class ImageUtils {
 
-    public static byte[] resizeImage(byte[] data, double scale) throws IOException {
+    private static final double MIN_HEIGHT = 200.0;
+
+    public static byte[] resizeImage(byte[] data) throws IOException {
 
         String formatName = getImageFormat(data);
 
@@ -26,6 +28,8 @@ public class ImageUtils {
         if (originalImage == null) {
             throw new IOException("Невозможно прочитать изображение из byte[]");
         }
+
+        double scale = MIN_HEIGHT / originalImage.getHeight();
 
         BufferedImage resizedImage = Thumbnails.of(originalImage)
                 .scale(scale)
