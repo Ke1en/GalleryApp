@@ -1,7 +1,9 @@
 package java412.galleryapp.service;
 
 import java412.galleryapp.entity.Image;
+import java412.galleryapp.entity.Thumbnail;
 import java412.galleryapp.repository.ImageRepository;
+import java412.galleryapp.repository.ThumbnailRepository;
 import java412.galleryapp.utils.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,15 +28,26 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
+    @Autowired
+    private ThumbnailRepository thumbnailRepository;
+
     @Transactional(rollbackFor = Exception.class)
-    public void uploadImage(MultipartFile file) throws IOException {
+    public void uploadImageWithThumbnail(MultipartFile file) throws IOException {
+
+        Image originalImage = uploadOriginalImage(file);
+
+        createThumbnail(originalImage);
+
+    }
+
+    private Image uploadOriginalImage(MultipartFile file) throws IOException {
 
         String fileName = UUID.randomUUID() + "." +  ImageUtils.getImageFormat(file.getBytes());
 
-        Path staticImagesPath = Paths.get("C:/media/images");
-        Files.createDirectories(staticImagesPath);
+        Path imagesPath = Paths.get("C:/media/images");
+        Files.createDirectories(imagesPath);
 
-        Path filePath = staticImagesPath.resolve(fileName);
+        Path filePath = imagesPath.resolve(fileName);
 
         Files.write(filePath, file.getBytes());
 
@@ -42,10 +55,28 @@ public class ImageService {
 
         imageRepository.saveAndFlush(image);
 
+        return image;
+
     }
 
-    public Page<Image> getAllImages(Pageable pageable) {
-        return imageRepository.findAll(pageable);
+    private void createThumbnail(Image originalImage) throws IOException {
+
+        Path originalImagePath = Paths.get("C:/media").resolve(originalImage.getImageUrl().substring(1));
+        byte[] originalImageBytes = Files.readAllBytes(originalImagePath);
+
+        byte[] thumbnailImageBytes = ImageUtils.resizeImage(originalImageBytes, 0.1);
+
+        String filename = UUID.randomUUID() + "." +  ImageUtils.getImageFormat(originalImageBytes);
+
+        Path thumbnailImagesPath = Paths.get("C:/media/thumbnails");
+
+        Path filePath = thumbnailImagesPath.resolve(filename);
+
+        Files.write(filePath, thumbnailImageBytes);
+
+        Thumbnail thumbnailImage = new Thumbnail(UUID.randomUUID(), "/thumbnails/" + filename, LocalDateTime.now(), originalImage.getId());
+        thumbnailRepository.saveAndFlush(thumbnailImage);
+
     }
 
 }

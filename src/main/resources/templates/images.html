@@ -92,8 +92,8 @@
 
         <!-- Галерея -->
         <div class="gallery-grid">
-            <div class="gallery-item" th:each="img : ${images}">
-                <img th:src="${img.imageUrl}"/>
+            <div class="gallery-item" th:each="thumbnail : ${thumbnails}">
+                <img th:src="${thumbnail.thumbnailUrl}"/>
             </div>
         </div>
 

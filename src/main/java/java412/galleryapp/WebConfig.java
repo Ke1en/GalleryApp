@@ -10,9 +10,15 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:C:/media/images/")
                 .setCacheControl(CacheControl.noCache());
+
+        registry.addResourceHandler("/thumbnails/**")
+                .addResourceLocations("file:C:/media/thumbnails/")
+                .setCacheControl(CacheControl.noCache());
+
     }
 
 }

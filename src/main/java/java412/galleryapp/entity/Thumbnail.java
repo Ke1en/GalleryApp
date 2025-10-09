@@ -1,6 +1,9 @@
 package java412.galleryapp.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,23 +16,26 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-@Entity(name = "images")
+@Entity(name = "thumbnails")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @EnableJpaAuditing
 @EntityListeners(AuditingEntityListener.class)
-public class Image {
+public class Thumbnail {
 
     @Id
     @Column
     private UUID id;
 
     @Column(nullable = false)
-    private String imageUrl;
+    private String thumbnailUrl;
 
     @CreatedDate
     @Column(nullable = false)
     private LocalDateTime createDate;
+
+    @Column(nullable = false)
+    private UUID imageId;
 
 }

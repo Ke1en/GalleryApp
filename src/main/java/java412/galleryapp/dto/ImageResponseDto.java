@@ -17,7 +17,7 @@ public class ImageResponseDto {
     @Schema(description = "Идентификатор изображения")
     private UUID id;
 
-    @Schema(type = "String", description = "Путь к изображению")
+    @Schema(description = "Путь к изображению")
     private String imageUrl;
 
     @Schema(description = "Время создания изображения")
