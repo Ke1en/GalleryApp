@@ -24,39 +24,49 @@
             </label>
         </div>
 
-        <div class="bottom-menu">
-        <!-- Пагинация -->
-            <div class="bottom-pagination">
-                <!-- Предыдущая -->
-                <a th:if="${currentPage > 0}"
-                   th:href="@{/images(page=${currentPage - 1}, size=${size})}">← Предыдущая</a>
-                <span th:unless="${currentPage > 0}" class="pagination-link disabled">← Предыдущая</span>
+        <!-- Галерея -->
+        <div class="gallery-grid">
+            <div class="gallery-item" th:each="thumbnail : ${thumbnails}">
+                <a href="/images"> <!-- th:href="@{${thumbnail.imageUrl}}" -->
+                    <img th:src="${thumbnail.thumbnailUrl}"/>
+                </a>
+            </div>
+        </div>
+    </div>
 
-                <!-- Если страниц <= 5, показываем все -->
-                <div th:if="${totalPages < 5}">
+    <div class="bottom-menu">
+        <!-- Пагинация -->
+        <div class="bottom-pagination">
+            <!-- Предыдущая -->
+            <a th:if="${currentPage > 0}"
+               th:href="@{/images(page=${currentPage - 1}, size=${size})}">← Предыдущая</a>
+            <span th:unless="${currentPage > 0}" class="pagination-link disabled">← Предыдущая</span>
+
+            <!-- Если страниц <= 5, показываем все -->
+            <div th:if="${totalPages < 5}">
                     <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
                         <a th:href="@{/images(page=${i}, size=${size})}"
                            th:text="${i + 1}"
                            th:classappend="${i == currentPage} ? ' current' : ''"></a>
                     </span>
-                </div>
+            </div>
 
-                <div th:if="${totalPages >= 5}">
-                    <!-- Первая и вторая страницы -->
-                    <a th:href="@{/images(page=0, size=${size})}"
-                       th:classappend="${currentPage == 0} ? ' current' : ''"
-                       th:text="${1}">1</a>
-                    <a th:if="${totalPages > 1}"
-                       th:href="@{/images(page=1, size=${size})}"
-                       th:classappend="${currentPage == 1} ? ' current' : ''"
-                       th:text="${2}">2
-                    </a>
+            <div th:if="${totalPages >= 5}">
+                <!-- Первая и вторая страницы -->
+                <a th:href="@{/images(page=0, size=${size})}"
+                   th:classappend="${currentPage == 0} ? ' current' : ''"
+                   th:text="${1}">1</a>
+                <a th:if="${totalPages > 1}"
+                   th:href="@{/images(page=1, size=${size})}"
+                   th:classappend="${currentPage == 1} ? ' current' : ''"
+                   th:text="${2}">2
+                </a>
 
-                    <!-- Многоточие после первых двух страниц -->
-                    <span th:if="${startPage > 2}" class="gap">…</span>
+                <!-- Многоточие после первых двух страниц -->
+                <span th:if="${startPage > 2}" class="gap">…</span>
 
-                    <!-- Диапазон страниц без первых двух и последних двух -->
-                    <span th:each="i : ${#numbers.sequence(
+                <!-- Диапазон страниц без первых двух и последних двух -->
+                <span th:each="i : ${#numbers.sequence(
                         (startPage > 2 ? startPage : 2),
                         (endPage < totalPages - 3 ? endPage : totalPages - 3))}">
                         <a th:href="@{/images(page=${i}, size=${size})}"
@@ -65,38 +75,29 @@
                         </a>
                     </span>
 
-                    <!-- Многоточие перед последними двумя страницами -->
-                    <span th:if="${endPage < totalPages - 3}" class="gap">…</span>
+                <!-- Многоточие перед последними двумя страницами -->
+                <span th:if="${endPage < totalPages - 3}" class="gap">…</span>
 
-                    <!-- Последние две страницы -->
-                    <a th:if="${totalPages > 2}"
-                       th:href="@{/images(page=${totalPages - 2}, size=${size})}"
-                       th:classappend="${currentPage == totalPages - 2} ? ' current' : ''"
-                       th:text="${totalPages - 1}">
-                    </a>
+                <!-- Последние две страницы -->
+                <a th:if="${totalPages > 2}"
+                   th:href="@{/images(page=${totalPages - 2}, size=${size})}"
+                   th:classappend="${currentPage == totalPages - 2} ? ' current' : ''"
+                   th:text="${totalPages - 1}">
+                </a>
 
-                    <a th:if="${totalPages > 1}"
-                       th:href="@{/images(page=${totalPages - 1}, size=${size})}"
-                       th:classappend="${currentPage == totalPages - 1} ? ' current' : ''"
-                       th:text="${totalPages}">
-                    </a>
-                </div>
-
-                <!-- Следующая -->
-                <a th:if="${currentPage + 1 < totalPages}"
-                   th:href="@{/images(page=${currentPage + 1}, size=${size})}">Следующая →</a>
-                <span th:unless="${currentPage + 1 < totalPages}" class="pagination-link disabled">Следующая →</span>
-
+                <a th:if="${totalPages > 1}"
+                   th:href="@{/images(page=${totalPages - 1}, size=${size})}"
+                   th:classappend="${currentPage == totalPages - 1} ? ' current' : ''"
+                   th:text="${totalPages}">
+                </a>
             </div>
-        </div>
 
-        <!-- Галерея -->
-        <div class="gallery-grid">
-            <div class="gallery-item" th:each="thumbnail : ${thumbnails}">
-                <img th:src="${thumbnail.thumbnailUrl}"/>
-            </div>
-        </div>
+            <!-- Следующая -->
+            <a th:if="${currentPage + 1 < totalPages}"
+               th:href="@{/images(page=${currentPage + 1}, size=${size})}">Следующая →</a>
+            <span th:unless="${currentPage + 1 < totalPages}" class="pagination-link disabled">Следующая →</span>
 
+        </div>
     </div>
 </div>
 
