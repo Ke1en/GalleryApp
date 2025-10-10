@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 public class ImageUtils {
 
-    private static final double MIN_HEIGHT = 180.0;
+    private static final double MIN_HEIGHT = 200.0;
 
     public static byte[] resizeImage(byte[] data) throws IOException {
 

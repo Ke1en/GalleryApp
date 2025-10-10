@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class ThumbnailController {
     @GetMapping("/images")
     public String showAllThumbnails(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "40") int size, Model model) {
 
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createDate");
         Page<Thumbnail> thumbnailsPage = thumbnailService.getAllThumbnails(pageable);
 
         List<ThumbnailResponseDto> thumbnails = thumbnailsPage.getContent().stream()
