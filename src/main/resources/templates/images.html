@@ -27,7 +27,7 @@
         <!-- Галерея -->
         <div class="gallery-grid">
             <div class="gallery-item" th:each="thumbnail : ${thumbnails}">
-                <a href="/images"> <!-- th:href="@{${thumbnail.imageUrl}}" -->
+                <a th:href="@{'/images/view/' + ${thumbnail.imageId}}">
                     <img th:src="${thumbnail.thumbnailUrl}"/>
                 </a>
             </div>

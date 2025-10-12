@@ -1,5 +1,8 @@
 package java412.galleryapp.controller;
 
+import java412.galleryapp.dto.ImageResponseDto;
+import java412.galleryapp.entity.Image;
+import java412.galleryapp.repository.ImageRepository;
 import java412.galleryapp.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +42,9 @@ public class ImageController {
     @GetMapping("/images/view/{id}")
     public String viewImagePage(@PathVariable UUID id, Model model) {
 
+        ImageResponseDto imageById = imageService.findImageById(id);
 
+        model.addAttribute("image", imageById);
 
         return "image-view";
 

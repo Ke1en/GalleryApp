@@ -52,7 +52,7 @@ public class ThumbnailController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("size", size);
-        model.addAttribute("totalPages", thumbnailsPage.getTotalPages());
+        model.addAttribute("totalPages", totalPages);
 
         return "images";
 

@@ -1,7 +1,9 @@
 package java412.galleryapp.service;
 
+import java412.galleryapp.dto.ImageResponseDto;
 import java412.galleryapp.entity.Image;
 import java412.galleryapp.entity.Thumbnail;
+import java412.galleryapp.mapper.ImageMapper;
 import java412.galleryapp.repository.ImageRepository;
 import java412.galleryapp.repository.ThumbnailRepository;
 import java412.galleryapp.utils.ImageUtils;
@@ -29,12 +31,23 @@ public class ImageService {
     @Autowired
     private ThumbnailRepository thumbnailRepository;
 
+    @Autowired
+    private ImageMapper imageMapper;
+
     @Transactional(rollbackFor = Exception.class)
     public void uploadImageWithThumbnail(MultipartFile file) throws IOException {
 
         Image originalImage = uploadOriginalImage(file);
 
         createThumbnail(originalImage);
+
+    }
+
+    public ImageResponseDto findImageById(UUID id) {
+
+        Image image = imageRepository.findById(id).orElseThrow();
+
+        return imageMapper.mapToImageResponseDto(image);
 
     }
 
