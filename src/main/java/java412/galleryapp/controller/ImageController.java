@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Controller
 @RequestMapping
@@ -33,6 +34,15 @@ public class ImageController {
     @GetMapping("/upload")
     public String showUploadImage(Model model) {
         return "upload";
+    }
+
+    @GetMapping("/images/view/{id}")
+    public String viewImagePage(@PathVariable UUID id, Model model) {
+
+
+
+        return "image-view";
+
     }
 
 }

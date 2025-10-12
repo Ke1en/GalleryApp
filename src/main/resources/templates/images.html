@@ -39,8 +39,8 @@
         <div class="bottom-pagination">
             <!-- Предыдущая -->
             <a th:if="${currentPage > 0}"
-               th:href="@{/images(page=${currentPage - 1}, size=${size})}">← Предыдущая</a>
-            <span th:unless="${currentPage > 0}" class="pagination-link disabled">← Предыдущая</span>
+               th:href="@{/images(page=${currentPage - 1}, size=${size})}">← Previous</a>
+            <span th:unless="${currentPage > 0}" class="pagination-link disabled">← Previous</span>
 
             <!-- Если страниц <= 5, показываем все -->
             <div th:if="${totalPages < 5}">
@@ -94,8 +94,8 @@
 
             <!-- Следующая -->
             <a th:if="${currentPage + 1 < totalPages}"
-               th:href="@{/images(page=${currentPage + 1}, size=${size})}">Следующая →</a>
-            <span th:unless="${currentPage + 1 < totalPages}" class="pagination-link disabled">Следующая →</span>
+               th:href="@{/images(page=${currentPage + 1}, size=${size})}">Next →</a>
+            <span th:unless="${currentPage + 1 < totalPages}" class="pagination-link disabled">Next →</span>
 
         </div>
     </div>

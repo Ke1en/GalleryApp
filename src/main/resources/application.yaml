@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+app:
+  resourceLocations:
+    images: file:///C:/media/images/
+    thumbnails: file:///C:/media/thumbnails/
 spring:
   servlet:
     multipart:
