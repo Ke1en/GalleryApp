@@ -1,4 +1,3 @@
-/* Общий стиль страницы */
 html, body {
     margin: 0;
     background-color: #121212;
@@ -6,7 +5,6 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
-/* Меню */
 .menu {
     background-color: #1c1c1c;
     padding: 5px 20px;
@@ -25,31 +23,29 @@ html, body {
 }
 
 .menu a:hover {
-    color: #4f8fff; /* синий цвет при наведении */
+    color: #4f8fff;
 }
 
 .main-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* высота на весь экран */
+    min-height: 100vh;
 }
 
-/* Контейнер, где расположены поиск и галерея — горизонтально */
 .content-area {
     display: flex;
-    flex: 1; /* Занимает оставшееся пространство */
-    gap: 20px; /* Расстояние между поиском и галереей */
+    flex: 1;
+    gap: 20px;
     padding: 10px 20px 40px 20px;
 }
 
-/* Контейнер для поисковой строки */
 .search-container {
     padding-top: 30px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 200px; /* ширина блока поиска, по желанию */
+    width: 200px;
 }
 
 .search-input {
@@ -72,24 +68,22 @@ html, body {
     grid-auto-rows: auto;
     gap: 10px;
     padding: 0 20px;
-    justify-content: start; /* вложения начинаются слева, а не растягиваются на всю ширину */
+    justify-content: start;
     max-height: 165px;
 }
 
 .gallery-item {
-    /*background-color: #242424;*/
     border-radius: 4px;
     padding: 1px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    max-width: 160px; /* ограничение ширины ячейки */
+    max-width: 160px;
     max-height: 165px;
-    width: 100%; /* внутри ячейки занимает всю ширину */
+    width: 100%;
 }
 
-/* Оборачивание картинки в ссылку */
 .gallery-item a {
     object-fit: scale-down;
     width: auto;
@@ -109,16 +103,14 @@ html, body {
     border-radius: 4px;
 }
 
-/* Основной контент */
 .page-content {
     flex: 1 1 auto;
     padding: 20px;
     display: flex;
-    justify-content: center; /* по горизонтали */
-    align-items: center; /* по вертикали */
+    justify-content: center;
+    align-items: center;
 }
 
-/* Контейнер формы */
 .upload-container {
     background-color: #242424;
     padding: 30px;
@@ -128,7 +120,6 @@ html, body {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-/* Стиль формы */
 .upload-form {
     display: flex;
     flex-direction: column;
@@ -149,12 +140,10 @@ html, body {
 }
 
 #selected-tags {
-    /* Стиль для отображения выбранных тегов */
     min-height: 20px;
     margin-top: 10px;
 }
 
-/* Стили для кнопки */
 .submit-btn {
     background-color: #4f8fff;
     color: #fff;
@@ -186,7 +175,6 @@ html, body {
     box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
 }
 
-/* Стили для элементов меню */
 .bottom-menu a {
     color: #eee;
     text-decoration: none;
@@ -198,10 +186,9 @@ html, body {
 }
 
 .bottom-menu a:hover {
-    color: #4f8fff; /* синий цвет при наведении */
+    color: #4f8fff;
 }
 
-/* Стиль пагинации внутри нижнего меню, например, отображать в строку */
 .bottom-pagination {
     display: flex;
     align-items: center;
@@ -215,12 +202,11 @@ html, body {
     flex-wrap: nowrap;
 }
 
-/* Подсветка текущей страницы через цвет текста и/или шрифт */
 .bottom-pagination a.current {
-    color: #4f8fff;        /* яркий цвет текста (красный, например) */
-    font-weight: bold;     /* сделать шрифт жирным */
-    background-color: transparent; /* без фона */
-    border: none;          /* без рамки */
+    color: #4f8fff;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
 }
 
 .pagination-link {

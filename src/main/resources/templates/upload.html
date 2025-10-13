@@ -8,14 +8,12 @@
 </head>
 <body>
 
-<!-- Меню -->
 <div class="menu">
     <a th:href="@{/account}">My Account</a>
     <a th:href="@{/images}">Gallery</a>
     <a th:href="@{/upload}">Upload</a>
 </div>
 
-<!-- Основной контент -->
 <div class="page-content">
     <div class="upload-container">
         <form th:action="@{/upload}" method="post" enctype="multipart/form-data" class="upload-form">

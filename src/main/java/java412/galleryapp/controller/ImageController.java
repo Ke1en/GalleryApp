@@ -1,7 +1,6 @@
 package java412.galleryapp.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java412.galleryapp.dto.ImageResponseDto;
 import java412.galleryapp.entity.Tag;
 import java412.galleryapp.service.ImageService;
