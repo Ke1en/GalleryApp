@@ -18,9 +18,19 @@
 <!-- Основной контент, центрированный -->
 <div class="page-content">
     <div class="upload-container">
-        <form class="upload-form" th:action="@{/upload}" method="post" enctype="multipart/form-data">
-            <input type="file" id="file" name="file" required/>
-            <button type="submit" class="submit-btn">Upload</button>
+        <form th:action="@{/upload}" method="post" enctype="multipart/form-data" class="upload-form">
+
+            <label for="file" class="upload-label">Выберите файл:</label>
+            <input type="file" id="file" name="file" required class="upload-input" />
+
+            <label for="tagIds" class="upload-label" style="margin-top: 20px;">Выберите теги:</label>
+            <select id="tagIds" name="tagIds" multiple size="5" required class="upload-select">
+                <option th:each="tag : ${tags}"
+                        th:value="${tag.id}"
+                        th:text="${tag.name}">TagName</option>
+            </select>
+
+            <button type="submit" class="submit-btn" style="margin-top: 20px;">Загрузить</button>
         </form>
     </div>
 </div>

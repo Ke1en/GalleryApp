@@ -1,8 +1,12 @@
 package java412.galleryapp.service;
 
+import java412.galleryapp.dto.ImageResponseDto;
 import java412.galleryapp.entity.Image;
+import java412.galleryapp.entity.Tag;
 import java412.galleryapp.entity.Thumbnail;
+import java412.galleryapp.mapper.ImageMapper;
 import java412.galleryapp.repository.ImageRepository;
+import java412.galleryapp.repository.TagRepository;
 import java412.galleryapp.repository.ThumbnailRepository;
 import java412.galleryapp.utils.ImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,16 +35,34 @@ public class ImageService {
     @Autowired
     private ThumbnailRepository thumbnailRepository;
 
-    @Transactional(rollbackFor = Exception.class)
-    public void uploadImageWithThumbnail(MultipartFile file) throws IOException {
+    @Autowired
+    private TagRepository tagRepository;
 
-        Image originalImage = uploadOriginalImage(file);
+    @Autowired
+    private ImageMapper imageMapper;
+
+    @Transactional(rollbackFor = Exception.class)
+    public void uploadImageWithThumbnail(MultipartFile file, List<UUID> tagIds) throws IOException {
+
+        Image originalImage = uploadOriginalImage(file, tagIds);
 
         createThumbnail(originalImage);
 
     }
 
-    private Image uploadOriginalImage(MultipartFile file) throws IOException {
+    public ImageResponseDto findImageById(UUID id) {
+
+        Image image = imageRepository.findById(id).orElseThrow();
+
+        return imageMapper.mapToImageResponseDto(image);
+
+    }
+
+    public List<Tag> findImageTags() {
+        return tagRepository.findAll();
+    }
+
+    private Image uploadOriginalImage(MultipartFile file, List<UUID> tagIds) throws IOException {
 
         String fileName = UUID.randomUUID() + "." +  ImageUtils.getImageFormat(file.getBytes());
 
@@ -48,7 +72,9 @@ public class ImageService {
         Path filePath = imagesPath.resolve(fileName);
         Files.write(filePath, file.getBytes());
 
-        Image image = new Image(UUID.randomUUID(), "/images/" + fileName, LocalDateTime.now());
+        List<Tag> tags = tagRepository.findAll();
+
+        Image image = new Image(UUID.randomUUID(), "/images/" + fileName, LocalDateTime.now(), new HashSet<>(tags));
 
         imageRepository.saveAndFlush(image);
 
