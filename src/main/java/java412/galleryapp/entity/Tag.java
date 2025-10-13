@@ -1,10 +1,8 @@
 package java412.galleryapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
@@ -27,6 +25,7 @@ public class Tag {
     @Column
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tags")
     private Set<Image> images;
 

@@ -17,7 +17,7 @@ import java.util.UUID;
 @Entity(name = "images")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "tags")
 @EnableJpaAuditing
 @EntityListeners(AuditingEntityListener.class)
 public class Image {

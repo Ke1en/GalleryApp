@@ -72,7 +72,7 @@ public class ImageService {
         Path filePath = imagesPath.resolve(fileName);
         Files.write(filePath, file.getBytes());
 
-        List<Tag> tags = tagRepository.findAll();
+        List<Tag> tags = tagRepository.findAllById(tagIds);
 
         Image image = new Image(UUID.randomUUID(), "/images/" + fileName, LocalDateTime.now(), new HashSet<>(tags));
 

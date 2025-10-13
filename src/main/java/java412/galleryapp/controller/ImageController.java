@@ -1,5 +1,7 @@
 package java412.galleryapp.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java412.galleryapp.dto.ImageResponseDto;
 import java412.galleryapp.entity.Tag;
 import java412.galleryapp.service.ImageService;
@@ -36,11 +38,11 @@ public class ImageController {
     }
 
     @GetMapping("/upload")
-    public String showUploadImage(Model model) {
+    public String showUploadImage(Model model) throws JsonProcessingException {
 
         List<Tag> tags = imageService.findImageTags();
 
-        model.addAttribute("tags", tags);
+        model.addAttribute("tagsJson", tags);
 
         return "upload";
     }

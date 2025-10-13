@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Загрузка файла</title>
+    <title>Image upload</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 <body>
@@ -15,25 +15,37 @@
     <a th:href="@{/upload}">Upload</a>
 </div>
 
-<!-- Основной контент, центрированный -->
+<!-- Основной контент -->
 <div class="page-content">
     <div class="upload-container">
         <form th:action="@{/upload}" method="post" enctype="multipart/form-data" class="upload-form">
 
-            <label for="file" class="upload-label">Выберите файл:</label>
-            <input type="file" id="file" name="file" required class="upload-input" />
+            <label for="file" class="upload-label">Choose file:</label>
+            <input type="file" accept=".jpeg, .jpg, .png" id="file" name="file" required class="upload-input" />
 
-            <label for="tagIds" class="upload-label" style="margin-top: 20px;">Выберите теги:</label>
-            <select id="tagIds" name="tagIds" multiple size="5" required class="upload-select">
-                <option th:each="tag : ${tags}"
-                        th:value="${tag.id}"
-                        th:text="${tag.name}">TagName</option>
-            </select>
+            <label for="tag-input" class="upload-label">Введите тег:</label>
+            <input id="tag-input" type="text" placeholder="Input to search tags" autocomplete="off" />
 
-            <button type="submit" class="submit-btn" style="margin-top: 20px;">Загрузить</button>
+            <div id="selected-tags"></div>
+
+            <input type="hidden" id="selected-tag-ids" name="tagIds" />
+
+            <button type="submit" class="submit-btn">Upload</button>
         </form>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"/>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script th:src="@{/js/autocomplete-tags.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var tagsFromModel = /*[[${tagsJson}]]*/ [];
+    initAutocomplete(tagsFromModel);
+    /*]]>*/
+</script>
 
 </body>
 </html>
