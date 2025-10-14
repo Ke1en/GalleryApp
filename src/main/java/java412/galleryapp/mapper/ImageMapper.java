@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class ImageMapper {
 
     public ImageResponseDto mapToImageResponseDto(Image image) {
-        return new ImageResponseDto(image.getId(), image.getImageUrl(), image.getCreateDate());
+        return new ImageResponseDto(image.getId(), image.getImageUrl(), image.getCreateDate(), image.getTags());
     }
 
 }

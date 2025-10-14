@@ -58,7 +58,7 @@ public class ImageService {
 
     }
 
-    public List<Tag> findImageTags() {
+    public List<Tag> getAllTags() {
         return tagRepository.findAll();
     }
 

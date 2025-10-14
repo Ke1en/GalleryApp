@@ -39,7 +39,7 @@ public class ImageController {
     @GetMapping("/upload")
     public String showUploadImage(Model model) throws JsonProcessingException {
 
-        List<Tag> tags = imageService.findImageTags();
+        List<Tag> tags = imageService.getAllTags();
 
         model.addAttribute("tagsJson", tags);
 
@@ -50,8 +50,10 @@ public class ImageController {
     public String viewImagePage(@PathVariable UUID id, Model model) {
 
         ImageResponseDto imageById = imageService.findImageById(id);
+        List<Tag> tags = imageService.getAllTags();
 
         model.addAttribute("image", imageById);
+        model.addAttribute("tags", tags);
 
         return "image-view";
 

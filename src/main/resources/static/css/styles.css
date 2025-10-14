@@ -7,7 +7,7 @@ html, body {
 
 .menu {
     background-color: #1c1c1c;
-    padding: 5px 20px;
+    padding: 1px 20px;
     display: flex;
     gap: 20px;
     align-items: center;
@@ -54,6 +54,7 @@ html, body {
     border: 1px solid #444;
     border-radius: 4px;
     outline: none;
+    margin-bottom: 8px;
 }
 
 .search-input:hover,
@@ -219,4 +220,29 @@ html, body {
 .pagination-link.disabled {
     opacity: 0.5;
     cursor: default;
+}
+
+/* блок тегов */
+#tags-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 2px;
+    padding: 0 8px;
+    font-size: 14px;
+}
+
+.tag {
+    border-radius: 4px;
+    padding: 2px 0;
+    font-size: 14px;
+    cursor: default;
+    /* добавим стиль для ховера, если нужно */
+}
+
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px; /* или подходящая ширина */
 }

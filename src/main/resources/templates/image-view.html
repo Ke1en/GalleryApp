@@ -19,10 +19,16 @@
     <!-- Контейнер под меню и слева от галереи -->
     <div class="content-area">
         <!-- Блок для поисковой строки -->
-        <div class="search-container">
-            <label>
-                <input type="text" class="search-input" placeholder="Search images..."/>
-            </label>
+        <div class="side-bar-area">
+            <div class="search-container">
+                <label>
+                    <input type="text" class="search-input" placeholder="Search images..."/>
+                </label>
+            </div>
+
+            <div class="tags-container" id="tags-container">Tags
+                <span th:each="tag : ${image.tags}" class="tag" th:text="${tag.name}"></span>
+            </div>
         </div>
 
         <!-- Основное изображение -->
@@ -32,6 +38,7 @@
     </div>
 
 </div>
+
 
 </body>
 </html>
