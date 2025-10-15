@@ -26,7 +26,10 @@
             </div>
 
             <div class="tags-container" id="tags-container">Tags
-                <span></span>
+                <span th:each="tag : ${tags}" class="tag">
+                    <span th:text="${tag.name}" class="tag-name"></span>
+                    <span th:text="${tag.imageCount}" class="tag-image-count"></span>
+                </span>
             </div>
         </div>
 

@@ -20,9 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Validated
@@ -58,8 +56,12 @@ public class ImageService {
 
     }
 
-    public List<Tag> getAllTags() {
-        return tagRepository.findAll();
+    /*public int getTagsCountForImage(UUID id) {
+
+    }
+*/
+    public Set<Tag> getTagsForImage(UUID id) {
+        return imageRepository.findTagsByImageId(id);
     }
 
     private Image uploadOriginalImage(MultipartFile file, List<UUID> tagIds) throws IOException {

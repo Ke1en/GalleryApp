@@ -1,8 +1,11 @@
 package java412.galleryapp.controller;
 
 import java412.galleryapp.dto.ThumbnailResponseDto;
+import java412.galleryapp.entity.Tag;
 import java412.galleryapp.entity.Thumbnail;
 import java412.galleryapp.mapper.ThumbnailMapper;
+import java412.galleryapp.service.ImageService;
+import java412.galleryapp.service.TagService;
 import java412.galleryapp.service.ThumbnailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping
@@ -27,6 +34,12 @@ public class ThumbnailController {
     @Autowired
     private ThumbnailMapper thumbnailMapper;
 
+    @Autowired
+    private ImageService imageService;
+
+    @Autowired
+    private TagService tagService;
+
     @GetMapping("/images")
     public String showAllThumbnails(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "40") int size, Model model) {
 
@@ -34,12 +47,20 @@ public class ThumbnailController {
         Page<Thumbnail> thumbnailsPage = thumbnailService.getAllThumbnails(pageable);
 
         List<ThumbnailResponseDto> thumbnails = thumbnailsPage.getContent().stream()
-                .map(thumbnailMapper::mapToThumbnailResponseDto)
+                .map(thumbnail -> {
+                    Set<Tag> tags = imageService.getTagsForImage(thumbnail.getImageId());
+                    tagService.updateImageTagsCounts(tags);
+                    return thumbnailMapper.mapToThumbnailResponseDto(thumbnail, tags);
+                })
                 .toList();
 
-        int maxPagesToShow = 5;
+        Set<Tag> uniqueTags = thumbnails.stream()
+                .flatMap(dto -> dto.getImageTags().stream())
+                .collect(Collectors.toSet());
+
         int totalPages = thumbnailsPage.getTotalPages();
 
+        int maxPagesToShow = 5;
         int startPage = Math.max(0, page - maxPagesToShow / 2);
         int endPage = Math.min(totalPages - 1, startPage + maxPagesToShow - 1);
 
@@ -53,6 +74,7 @@ public class ThumbnailController {
         model.addAttribute("endPage", endPage);
         model.addAttribute("size", size);
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("tags", uniqueTags);
 
         return "images";
 

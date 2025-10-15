@@ -240,6 +240,19 @@ html, body {
     /* добавим стиль для ховера, если нужно */
 }
 
+.tag-name {
+    transition: color 0.2s ease-in-out;
+}
+
+.tag-name:hover {
+    color: #4f8fff;
+}
+
+.tag-image-count {
+    font-size: 12px;
+    color: dimgray;
+}
+
 .side-panel {
     display: flex;
     flex-direction: column;

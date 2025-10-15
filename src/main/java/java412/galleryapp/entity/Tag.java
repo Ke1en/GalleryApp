@@ -25,6 +25,9 @@ public class Tag {
     @Column
     private String name;
 
+    @Transient
+    private int imageCount;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "tags")
     private Set<Image> images;
