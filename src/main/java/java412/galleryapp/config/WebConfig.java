@@ -16,11 +16,11 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         registry.addResourceHandler("/images/**")
-                .addResourceLocations(appProperties.getResourceLocations().getImages())
+                .addResourceLocations("file:///" + appProperties.getResourceLocations().getImages())
                 .setCacheControl(CacheControl.noCache());
 
         registry.addResourceHandler("/thumbnails/**")
-                .addResourceLocations(appProperties.getResourceLocations().getThumbnails())
+                .addResourceLocations("file:///" + appProperties.getResourceLocations().getThumbnails())
                 .setCacheControl(CacheControl.noCache());
 
     }

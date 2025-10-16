@@ -1,5 +1,6 @@
 package java412.galleryapp.service;
 
+import java412.galleryapp.config.AppProperties;
 import java412.galleryapp.dto.ImageResponseDto;
 import java412.galleryapp.entity.Image;
 import java412.galleryapp.entity.Tag;
@@ -26,6 +27,9 @@ import java.util.*;
 @Validated
 @Transactional(readOnly = true)
 public class ImageService {
+
+    @Autowired
+    private AppProperties appProperties;
 
     @Autowired
     private ImageRepository imageRepository;
@@ -56,10 +60,6 @@ public class ImageService {
 
     }
 
-    /*public int getTagsCountForImage(UUID id) {
-
-    }
-*/
     public Set<Tag> getTagsForImage(UUID id) {
         return imageRepository.findTagsByImageId(id);
     }
@@ -68,7 +68,7 @@ public class ImageService {
 
         String fileName = UUID.randomUUID() + "." +  ImageUtils.getImageFormat(file.getBytes());
 
-        Path imagesPath = Paths.get("C:/media/images");
+        Path imagesPath = Paths.get(appProperties.getResourceLocations().getImages());
         Files.createDirectories(imagesPath);
 
         Path filePath = imagesPath.resolve(fileName);
@@ -86,14 +86,15 @@ public class ImageService {
 
     private void createThumbnail(Image originalImage) throws IOException {
 
-        Path originalImagePath = Paths.get("C:/media").resolve(originalImage.getImageUrl().substring(1));
+        String imageFilename = (originalImage.getImageUrl().lastIndexOf('/') != -1) ? originalImage.getImageUrl().substring(originalImage.getImageUrl().lastIndexOf('/') + 1) : originalImage.getImageUrl();
+        Path originalImagePath = Paths.get(appProperties.getResourceLocations().getImages()).resolve(imageFilename);
         byte[] originalImageBytes = Files.readAllBytes(originalImagePath);
 
         byte[] thumbnailImageBytes = ImageUtils.resizeImage(originalImageBytes);
 
         String filename = UUID.randomUUID() + "." +  ImageUtils.getImageFormat(originalImageBytes);
 
-        Path thumbnailImagesPath = Paths.get("C:/media/thumbnails");
+        Path thumbnailImagesPath = Paths.get(appProperties.getResourceLocations().getThumbnails());
         Path filePath = thumbnailImagesPath.resolve(filename);
         Files.write(filePath, thumbnailImageBytes);
 

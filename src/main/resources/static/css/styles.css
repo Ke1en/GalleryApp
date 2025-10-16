@@ -222,7 +222,6 @@ html, body {
     cursor: default;
 }
 
-/* блок тегов */
 #tags-container {
     display: flex;
     flex-direction: column;
@@ -237,7 +236,6 @@ html, body {
     padding: 2px 0;
     font-size: 14px;
     cursor: default;
-    /* добавим стиль для ховера, если нужно */
 }
 
 .tag-name {
@@ -257,5 +255,5 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 300px; /* или подходящая ширина */
+    width: 300px;
 }

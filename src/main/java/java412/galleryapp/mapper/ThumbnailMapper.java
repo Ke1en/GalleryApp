@@ -5,7 +5,6 @@ import java412.galleryapp.entity.Tag;
 import java412.galleryapp.entity.Thumbnail;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Set;
 
 @Component

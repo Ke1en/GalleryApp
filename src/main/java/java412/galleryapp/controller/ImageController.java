@@ -56,7 +56,7 @@ public class ImageController {
         ImageResponseDto imageById = imageService.findImageById(id);
         Set<Tag> tags = imageById.getTags();
 
-        tagService.updateImageTagsCounts(tags);
+        tagService.updateImageTagsCounter(tags);
 
         model.addAttribute("image", imageById);
         model.addAttribute("tags", tags);

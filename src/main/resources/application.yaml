@@ -3,8 +3,8 @@ server:
 
 app:
   resourceLocations:
-    images: file:///C:/media/images/
-    thumbnails: file:///C:/media/thumbnails/
+    images: C:/media/images/
+    thumbnails: C:/media/thumbnails/
 spring:
   servlet:
     multipart:

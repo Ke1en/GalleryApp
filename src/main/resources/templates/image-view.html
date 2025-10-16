@@ -7,18 +7,14 @@
 </head>
 <body>
 
-<!-- Общий контейнер для всего контента -->
 <div class="main-container">
     <!-- Меню -->
     <div class="menu">
-        <a th:href="@{/account}">My Account</a>
         <a th:href="@{/images}">Gallery</a>
         <a th:href="@{/upload}">Upload</a>
     </div>
 
-    <!-- Контейнер под меню и слева от галереи -->
     <div class="content-area">
-        <!-- Блок для поисковой строки -->
         <div class="side-bar-area">
             <div class="search-container">
                 <label>
@@ -34,7 +30,6 @@
             </div>
         </div>
 
-        <!-- Основное изображение -->
         <main class="main-content">
             <img th:src="${image.imageUrl}" alt="Изображение"/>
         </main>

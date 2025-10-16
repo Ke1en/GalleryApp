@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,7 +47,7 @@ public class ThumbnailController {
         List<ThumbnailResponseDto> thumbnails = thumbnailsPage.getContent().stream()
                 .map(thumbnail -> {
                     Set<Tag> tags = imageService.getTagsForImage(thumbnail.getImageId());
-                    tagService.updateImageTagsCounts(tags);
+                    tagService.updateImageTagsCounter(tags);
                     return thumbnailMapper.mapToThumbnailResponseDto(thumbnail, tags);
                 })
                 .toList();
