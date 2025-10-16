@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class TagService {
 
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
 
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
