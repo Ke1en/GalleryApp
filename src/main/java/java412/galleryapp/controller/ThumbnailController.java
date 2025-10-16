@@ -30,17 +30,19 @@ public class ThumbnailController {
     private TagService tagService;
 
     @GetMapping("/images")
-    public String showAllThumbnails(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "40") int size, Model model) {
+    public String showAllThumbnails(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "40") int size,
+                                    @RequestParam(required = false) String search,
+                                    Model model) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createDate");
-        Page<Thumbnail> thumbnailsPage = thumbnailService.getAllThumbnails(pageable);
+        Page<Thumbnail> thumbnailsPage = thumbnailService.getSearchFilter(search, pageable);
 
         List<ThumbnailResponseDto> thumbnails = thumbnailService.convertPageableThumbnailsToDto(thumbnailsPage.getContent());
 
         List<Tag> sortedUniqueTags = tagService.getSortedUniqueTags(thumbnails);
 
         int totalPages = thumbnailsPage.getTotalPages();
-
         int[] pageRange = PaginationUtils.calculatePageRange(page, totalPages, 5);
         int startPage = pageRange[0];
         int endPage = pageRange[1];
@@ -52,6 +54,7 @@ public class ThumbnailController {
         model.addAttribute("size", size);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("tags", sortedUniqueTags);
+        model.addAttribute("search", search);
 
         return "images";
 

@@ -51,7 +51,8 @@ public class ImageController {
     }
 
     @GetMapping("/images/view/{id}")
-    public String viewImagePage(@PathVariable UUID id, Model model) {
+    public String viewImagePage(@PathVariable UUID id,
+                                Model model) {
 
         ImageResponseDto imageById = imageService.findImageById(id);
         Set<Tag> tags = imageById.getTags();

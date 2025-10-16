@@ -16,13 +16,18 @@
         <div class="side-bar-area">
             <div class="search-container">
                 <label>
-                    <input type="text" class="search-input" placeholder="Search images..."/>
+                    <form class="search-form" action="/images" method="get">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search images..." name="search"/>
+                    </form>
                 </label>
             </div>
 
             <div class="tags-container" id="tags-container">Tags
                 <span th:each="tag : ${tags}" class="tag">
-                    <span th:text="${tag.name}" class="tag-name"></span>
+                    <a href=""
+                       th:text="${tag.name}"
+                       th:attr="data-tag=${tag.name}"
+                       class="tag-name"></a>
                     <span th:text="${tag.imageCount}" class="tag-image-count"></span>
                 </span>
             </div>
@@ -40,23 +45,27 @@
     <div class="bottom-menu">
         <div class="bottom-pagination">
             <a th:if="${currentPage > 0}"
-               th:href="@{/images(page=${currentPage - 1}, size=${size})}">← Previous</a>
+               th:href="@{/images(page=${currentPage - 1}, size=${size}, search=${search})}">← Previous</a>
             <span th:unless="${currentPage > 0}" class="pagination-link disabled">← Previous</span>
 
-            <div th:if="${totalPages < 5}">
-                    <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                        <a th:href="@{/images(page=${i}, size=${size})}"
-                           th:text="${i + 1}"
-                           th:classappend="${i == currentPage} ? ' current' : ''"></a>
-                    </span>
+            <div th:if="${totalPages == 0}">
+                <a href="#" class="current">1</a>
+            </div>
+
+            <div th:if="${totalPages > 0 and totalPages < 5}">
+            <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a th:href="@{/images(page=${i}, size=${size}, search=${search})}"
+                   th:text="${i + 1}"
+                   th:classappend="${i == currentPage} ? ' current' : ''"></a>
+            </span>
             </div>
 
             <div th:if="${totalPages >= 5}">
-                <a th:href="@{/images(page=0, size=${size})}"
+                <a th:href="@{/images(page=0, size=${size}, search=${search})}"
                    th:classappend="${currentPage == 0} ? ' current' : ''"
                    th:text="${1}">1</a>
                 <a th:if="${totalPages > 1}"
-                   th:href="@{/images(page=1, size=${size})}"
+                   th:href="@{/images(page=1, size=${size}, search=${search})}"
                    th:classappend="${currentPage == 1} ? ' current' : ''"
                    th:text="${2}">2
                 </a>
@@ -64,35 +73,37 @@
                 <span th:if="${startPage > 2}" class="gap">…</span>
 
                 <span th:each="i : ${#numbers.sequence(
-                        (startPage > 2 ? startPage : 2),
-                        (endPage < totalPages - 3 ? endPage : totalPages - 3))}">
-                        <a th:href="@{/images(page=${i}, size=${size})}"
-                           th:text="${i + 1}"
-                           th:classappend="${i == currentPage} ? ' current' : ''">
-                        </a>
-                </span>
+                    (startPage > 2 ? startPage : 2),
+                    (endPage < totalPages - 3 ? endPage : totalPages - 3))}">
+                <a th:href="@{/images(page=${i}, size=${size}, search=${search})}"
+                   th:text="${i + 1}"
+                   th:classappend="${i == currentPage} ? ' current' : ''">
+                </a>
+            </span>
 
                 <span th:if="${endPage < totalPages - 3}" class="gap">…</span>
 
                 <a th:if="${totalPages > 2}"
-                   th:href="@{/images(page=${totalPages - 2}, size=${size})}"
+                   th:href="@{/images(page=${totalPages - 2}, size=${size}, search=${search})}"
                    th:classappend="${currentPage == totalPages - 2} ? ' current' : ''"
                    th:text="${totalPages - 1}">
                 </a>
 
                 <a th:if="${totalPages > 1}"
-                   th:href="@{/images(page=${totalPages - 1}, size=${size})}"
+                   th:href="@{/images(page=${totalPages - 1}, size=${size}, search=${search})}"
                    th:classappend="${currentPage == totalPages - 1} ? ' current' : ''"
                    th:text="${totalPages}">
                 </a>
             </div>
 
             <a th:if="${currentPage + 1 < totalPages}"
-               th:href="@{/images(page=${currentPage + 1}, size=${size})}">Next →</a>
+               th:href="@{/images(page=${currentPage + 1}, size=${size}, search=${search})}">Next →</a>
             <span th:unless="${currentPage + 1 < totalPages}" class="pagination-link disabled">Next →</span>
         </div>
     </div>
 </div>
+
+<script src="/js/search-by-tags.js"></script>
 
 </body>
 </html>

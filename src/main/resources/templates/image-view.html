@@ -8,7 +8,6 @@
 <body>
 
 <div class="main-container">
-    <!-- Меню -->
     <div class="menu">
         <a th:href="@{/images}">Gallery</a>
         <a th:href="@{/upload}">Upload</a>
@@ -18,13 +17,18 @@
         <div class="side-bar-area">
             <div class="search-container">
                 <label>
-                    <input type="text" class="search-input" placeholder="Search images..."/>
+                    <form class="search-form" action="/images" method="get">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search images..." name="search"/>
+                    </form>
                 </label>
             </div>
 
             <div class="tags-container" id="tags-container">Tags
-                <span th:each="tag : ${image.tags}" class="tag">
-                    <span th:text="${tag.name}" class="tag-name"></span>
+                <span th:each="tag : ${tags}" class="tag">
+                    <a href=""
+                       th:text="${tag.name}"
+                       th:attr="data-tag=${tag.name}"
+                       class="tag-name"></a>
                     <span th:text="${tag.imageCount}" class="tag-image-count"></span>
                 </span>
             </div>
@@ -37,6 +41,7 @@
 
 </div>
 
+<script src="/js/search-by-tags.js"></script>
 
 </body>
 </html>

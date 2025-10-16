@@ -7,6 +7,7 @@ import java412.galleryapp.mapper.ThumbnailMapper;
 import java412.galleryapp.repository.ThumbnailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,32 @@ public class ThumbnailService {
                     return thumbnailMapper.mapToThumbnailResponseDto(thumbnail, tags);
                 })
                 .collect(Collectors.toList());
+    }
+
+    public Page<Thumbnail> getThumbnailsByTags(List<String> tags, Pageable pageable) {
+
+        int tagCount = tags.size();
+        List<Thumbnail> thumbnails = thumbnailRepository.findThumbnailsByTags(tags, tagCount);
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), thumbnails.size());
+
+        return new PageImpl<>(thumbnails.subList(start, end), pageable, thumbnails.size());
+
+    }
+
+    public Page<Thumbnail> getSearchFilter(String search, Pageable pageable) {
+
+        if (search != null && !search.trim().isEmpty()) {
+
+            String[] tagsToFilter = search.trim().split("\\s+");
+
+            return getThumbnailsByTags(List.of(tagsToFilter), pageable);
+
+        } else {
+            return getAllThumbnails(pageable);
+        }
+
     }
 
 }
