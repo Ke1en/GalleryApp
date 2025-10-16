@@ -28,6 +28,8 @@ public class Tag {
     @Transient
     private int imageCount;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonIgnore
     @ManyToMany(mappedBy = "tags")
     private Set<Image> images;

@@ -3,10 +3,9 @@ package java412.galleryapp.controller;
 import java412.galleryapp.dto.ThumbnailResponseDto;
 import java412.galleryapp.entity.Tag;
 import java412.galleryapp.entity.Thumbnail;
-import java412.galleryapp.mapper.ThumbnailMapper;
-import java412.galleryapp.service.ImageService;
 import java412.galleryapp.service.TagService;
 import java412.galleryapp.service.ThumbnailService;
+import java412.galleryapp.utils.PaginationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping
@@ -28,12 +25,6 @@ public class ThumbnailController {
 
     @Autowired
     private ThumbnailService thumbnailService;
-
-    @Autowired
-    private ThumbnailMapper thumbnailMapper;
-
-    @Autowired
-    private ImageService imageService;
 
     @Autowired
     private TagService tagService;
@@ -44,27 +35,15 @@ public class ThumbnailController {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createDate");
         Page<Thumbnail> thumbnailsPage = thumbnailService.getAllThumbnails(pageable);
 
-        List<ThumbnailResponseDto> thumbnails = thumbnailsPage.getContent().stream()
-                .map(thumbnail -> {
-                    Set<Tag> tags = imageService.getTagsForImage(thumbnail.getImageId());
-                    tagService.updateImageTagsCounter(tags);
-                    return thumbnailMapper.mapToThumbnailResponseDto(thumbnail, tags);
-                })
-                .toList();
+        List<ThumbnailResponseDto> thumbnails = thumbnailService.convertPageableThumbnailsToDto(thumbnailsPage.getContent());
 
-        Set<Tag> uniqueTags = thumbnails.stream()
-                .flatMap(dto -> dto.getImageTags().stream())
-                .collect(Collectors.toSet());
+        List<Tag> sortedUniqueTags = tagService.getSortedUniqueTags(thumbnails);
 
         int totalPages = thumbnailsPage.getTotalPages();
 
-        int maxPagesToShow = 5;
-        int startPage = Math.max(0, page - maxPagesToShow / 2);
-        int endPage = Math.min(totalPages - 1, startPage + maxPagesToShow - 1);
-
-        if (endPage - startPage < maxPagesToShow - 1) {
-            startPage = Math.max(0, endPage - maxPagesToShow + 1);
-        }
+        int[] pageRange = PaginationUtils.calculatePageRange(page, totalPages, 5);
+        int startPage = pageRange[0];
+        int endPage = pageRange[1];
 
         model.addAttribute("thumbnails", thumbnails);
         model.addAttribute("currentPage", page);
@@ -72,7 +51,7 @@ public class ThumbnailController {
         model.addAttribute("endPage", endPage);
         model.addAttribute("size", size);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("tags", uniqueTags);
+        model.addAttribute("tags", sortedUniqueTags);
 
         return "images";
 
