@@ -1,6 +1,6 @@
 window.initAutocomplete = function(tags) {
     $(function () {
-        var tagsData = tags; // Используем переданное значение
+        var tagsData = tags;
         var tagNames = tagsData.map(function (tag) {
             return {label: tag.name, value: tag.id};
         });
@@ -13,26 +13,22 @@ window.initAutocomplete = function(tags) {
             $("#tag-input").autocomplete({
                 minLength: 1,
                 source: function (request, response) {
-                    // фильтруем метки по подстроке (регистронезависимо)
                     var filtered = $.grep(tagNames, function (tag) {
                         return tag.label.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
                     });
                     response(filtered);
                 },
                 select: function (event, ui) {
-                    // Проверяем, что тег еще не выбран
                     if (!selectedTags.some(function (t) {
                         return t.value === ui.item.value;
                     })) {
                         selectedTags.push(ui.item);
                         updateSelectedTags();
                     }
-                    // Очищаем поле ввода
                     $("#tag-input").val('');
                     return false;
                 },
                 focus: function (event, ui) {
-                    // предотвращаем заполнение поля при фокусе на элементе
                     return false;
                 }
             });
@@ -54,7 +50,6 @@ window.initAutocomplete = function(tags) {
                         display: 'inline-block'
                     })
                     .click(function () {
-                        // Удаляем тег по клику
                         selectedTags = selectedTags.filter(function (t) {
                             return t.value !== tag.value;
                         });
@@ -63,7 +58,6 @@ window.initAutocomplete = function(tags) {
                 container.append(span);
                 ids.push(tag.value);
             });
-            // Обновляем скрытое поле с выбранными id
             $('#selected-tag-ids').val(ids.join(','));
         }
     });
