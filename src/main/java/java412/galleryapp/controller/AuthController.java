@@ -63,8 +63,11 @@ public class AuthController {
 
     @PostMapping("/auth/logout")
     public String logout(HttpSession session) {
+
         session.invalidate();
+
         return "redirect:/auth/home";
+
     }
 
     @PostMapping("/auth/login")
@@ -75,8 +78,11 @@ public class AuthController {
 
         User user = userService.findByUsername(username).orElse(null);
         if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
+
             model.addAttribute("error", "Invalid username or password");
+
             return "login";
+
         }
 
         String token = jwtUtils.generateToken(user.getUsername());
@@ -106,8 +112,11 @@ public class AuthController {
         }
 
         if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+
             model.addAttribute("error", "Current password is incorrect");
+
             return "redirect:/auth/change-password";
+
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));
@@ -116,6 +125,7 @@ public class AuthController {
         model.addAttribute("success", "Password successfully changed");
 
         return "redirect:/images";
+
     }
 
 

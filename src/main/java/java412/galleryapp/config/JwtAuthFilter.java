@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Component
@@ -36,22 +35,32 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String username = null;
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
+
             token = authHeader.substring(7);
+
             if (jwtUtils.validateToken(token)) {
                 username = jwtUtils.getUsernameFromToken(token);
             }
+
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
             Optional<User> userOpt = userService.findByUsername(username);
+
             if (userOpt.isPresent()) {
+
                 UserDetails userDetails = this.userService.loadUserByUsername(username);
 
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+
             }
         }
+
         filterChain.doFilter(request, response);
+
     }
+
 }
