@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auth</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div class="main-container">
+    <div class="menu">
+        <a th:href="@{/auth/home}">My Account</a>
+        <a th:href="@{/images}">Gallery</a>
+        <a th:href="@{/upload}">Upload</a>
+    </div>
+
+    <div class="auth-container">
+        <ul>
+            <li th:if="${not loggedIn}">
+                <a class="btn btn-login" th:href="@{/auth/login}">Login</a>
+            </li>
+            <li th:if="${not loggedIn}">
+                <a class="btn btn-register" th:href="@{/auth/register}">Register</a>
+            </li>
+            <li th:if="${loggedIn}">
+                <a class="btn btn-change-password" th:href="@{/auth/change-password}">Change Password</a>
+            </li>
+            <li th:if="${loggedIn}">
+                <form th:action="@{/auth/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-logout">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

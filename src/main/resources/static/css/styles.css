@@ -145,7 +145,8 @@ html, body {
     margin-top: 10px;
 }
 
-.submit-btn {
+.submit-btn,
+.btn-logout {
     background-color: #4f8fff;
     color: #fff;
     font-weight: bold;
@@ -258,4 +259,24 @@ html, body {
     flex-direction: column;
     gap: 10px;
     width: 300px;
+}
+
+.auth-container {
+    padding: 20px;
+}
+
+.btn-login,
+.btn-register,
+.btn-change-password {
+    color: #eee;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: color 0.2s ease-in-out;
+}
+
+.btn-login:hover,
+.btn-register:hover,
+.btn-change-password:hover {
+    color: #4f8fff;
 }

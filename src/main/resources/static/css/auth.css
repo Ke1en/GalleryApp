@@ -1,0 +1,115 @@
+html, body {
+    margin: 0;
+    background-color: #121212;
+    color: #eee;
+    font-family: Arial, sans-serif;
+}
+
+.menu {
+    background-color: #1c1c1c;
+    padding: 1px 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.menu a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 6px 8px;
+    transition: color 0.2s ease-in-out;
+}
+
+.menu a:hover {
+    color: #4f8fff;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-container,
+.login-container,
+.change-password-form {
+    justify-content: center;
+    background-color: #242424;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.register-form,
+.login-form,
+.change-password-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.register-label,
+.login-label,
+.current-password-label,
+.new-password-label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    max-width: 400px;
+    margin-top: 15px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #3a3a3a;
+    color: #eee;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s ease-in-out;
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover,
+input[type="email"]:hover,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border: 2px solid #4f8fff;
+}
+
+/* Кнопка регистрации */
+.register-btn,
+.login-btn {
+    background-color: #4f8fff;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.register-btn:hover,
+.login-btn:hover {
+    background-color: #3a6fdc;
+}
