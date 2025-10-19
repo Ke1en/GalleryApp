@@ -8,42 +8,42 @@
 </head>
 <body>
 
-<div class="menu">
-    <a th:href="@{/auth/home}">My Account</a>
-    <a th:href="@{/images}">Gallery</a>
-    <a th:href="@{/upload}">Upload</a>
-</div>
-
-<div class="page-content">
-    <div class="upload-container">
-        <form th:action="@{/upload}" method="post" enctype="multipart/form-data" class="upload-form">
-
-            <label for="file" class="upload-label">Choose file:</label>
-            <input type="file" accept=".jpeg, .jpg, .png" id="file" name="file" required class="upload-input" />
-
-            <label for="tag-input" class="upload-label">Введите тег:</label>
-            <input id="tag-input" type="text" placeholder="Input to search tags" autocomplete="off" />
-
-            <div id="selected-tags"></div>
-
-            <input type="hidden" id="selected-tag-ids" name="tagIds" />
-
-            <button type="submit" class="submit-btn">Upload</button>
-        </form>
+    <div class="menu">
+        <a th:href="@{/auth/home}">My Account</a>
+        <a th:href="@{/images}">Gallery</a>
+        <a th:href="@{/upload}">Upload</a>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"/>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <div class="page-content">
+        <div class="upload-container">
+            <form th:action="@{/upload}" method="post" enctype="multipart/form-data" class="upload-form">
 
-<script th:src="@{/js/autocomplete-tags.js}"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var tagsFromModel = /*[[${tagsJson}]]*/ [];
-    initAutocomplete(tagsFromModel);
-    /*]]>*/
-</script>
+                <label for="file" class="upload-label">Choose file:</label>
+                <input type="file" accept=".jpeg, .jpg, .png" id="file" name="file" required class="upload-input" />
+
+                <label for="tag-input" class="upload-label">Введите тег:</label>
+                <input id="tag-input" type="text" placeholder="Input to search tags" autocomplete="off" />
+
+                <div id="selected-tags"></div>
+
+                <input type="hidden" id="selected-tag-ids" name="tagIds" />
+
+                <button type="submit" class="submit-btn">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"/>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script th:src="@{/js/autocomplete-tags.js}"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var tagsFromModel = /*[[${tagsJson}]]*/ [];
+        initAutocomplete(tagsFromModel);
+        /*]]>*/
+    </script>
 
 </body>
 </html>
