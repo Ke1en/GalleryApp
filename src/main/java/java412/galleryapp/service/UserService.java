@@ -27,11 +27,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     @Transactional(rollbackFor = Exception.class)
-    public void registerUser(String username, String password, String email) throws Exception {
-
-        if (userRepository.findByUsername(username).isPresent()) {
-            throw new Exception("Пользователь уже существует");
-        }
+    public void registerUser(String username, String password, String email) {
 
         User user = new User();
 

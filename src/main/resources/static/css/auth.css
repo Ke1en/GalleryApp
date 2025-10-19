@@ -95,7 +95,8 @@ input[type="email"]:focus {
 
 /* Кнопка регистрации */
 .register-btn,
-.login-btn {
+.login-btn,
+.change-btn {
     background-color: #4f8fff;
     color: #fff;
     font-weight: bold;
@@ -112,4 +113,9 @@ input[type="email"]:focus {
 .register-btn:hover,
 .login-btn:hover {
     background-color: #3a6fdc;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
 }

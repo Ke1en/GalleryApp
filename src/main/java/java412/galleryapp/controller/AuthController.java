@@ -53,11 +53,21 @@ public class AuthController {
     @PostMapping("/auth/register")
     public String register(@RequestParam String username,
                            @RequestParam String password,
-                           @RequestParam String email) throws Exception {
+                           @RequestParam String email,
+                           Model model) {
+
+        User user = userService.findByUsername(username).orElse(null);
+        if (user != null) {
+
+            model.addAttribute("error", "User is already taken");
+
+            return "register";
+
+        }
 
         userService.registerUser(username, password, email);
 
-        return "images";
+        return "redirect:/auth/login";
 
     }
 
@@ -115,14 +125,12 @@ public class AuthController {
 
             model.addAttribute("error", "Current password is incorrect");
 
-            return "redirect:/auth/change-password";
+            return "change-password";
 
         }
 
         user.setPassword(passwordEncoder.encode(newPassword));
         userService.changePassword(user);
-
-        model.addAttribute("success", "Password successfully changed");
 
         return "redirect:/images";
 

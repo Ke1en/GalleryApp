@@ -21,6 +21,8 @@
                     <label for="password" class="login-label">Password:</label>
                     <input type="password" id="password" name="password" placeholder="Input password" required/>
 
+                    <div class="error-message" th:if="${error}" th:text="${error}"></div>
+
                     <button type="submit" class="login-btn">Sign in</button>
                 </form>
             </div>

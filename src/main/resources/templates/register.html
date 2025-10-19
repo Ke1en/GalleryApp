@@ -25,10 +25,14 @@
                 <label for="email" class="register-label">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Input email" required/>
 
+                <div class="error-message" th:if="${error}" th:text="${error}"></div>
+
                 <button type="submit" class="register-btn">Register</button>
             </form>
         </div>
     </div>
+
+
 </div>
 </body>
 </html>
